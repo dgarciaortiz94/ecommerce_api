@@ -21,6 +21,13 @@ build:
 	cp ./.env.example ./.env
 	docker exec ${DOCKER_CONTAINER} sh -c "cd ${DOCKER_ROOT_PATH} && composer install"
 
+rebuild:
+	docker-compose up -d --remove-orphans --build
+	@echo "Waiting for containers to start..."
+	@while [ $$(docker ps --filter "status=running" --format "{{.Names}}" | grep -c "${DOCKER_CONTAINER}") -eq 0 ]; do \
+		sleep 3; \
+	done
+
 start:
 	docker-compose up -d --remove-orphans
 
@@ -37,5 +44,5 @@ test:
 	docker exec ${DOCKER_CONTAINER} sh -c "cd ${DOCKER_ROOT_PATH} && php bin/phpunit"
 
 cs-fix:
-	docker exec ${DOCKER_CONTAINER} sh -c "cd ${DOCKER_ROOT_PATH} && vendor/bin/php-cs-fixer fix"
+	docker exec ${DOCKER_CONTAINER} sh -c "cd ${DOCKER_ROOT_PATH} && vendor/bin/php-cs-fixer fix src"
 	
