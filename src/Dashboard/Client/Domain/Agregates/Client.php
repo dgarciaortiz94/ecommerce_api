@@ -48,7 +48,6 @@ class Client extends AgregateRoot
     public function email(): string
     {
         return $this->email->value();
-        
     }
 
     /**
