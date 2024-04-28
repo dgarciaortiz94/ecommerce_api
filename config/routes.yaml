@@ -1,0 +1,20 @@
+# controllers:
+#     resource:
+#         path: ../src/Controller/
+#         namespace: App\Controller
+#     type: attribute
+
+client_authentication:
+    path:       /sign-in
+    controller: App\Entrypoint\Controller\Dashboard\Authentication\SignInController
+    methods:    POST
+
+google_client_authentication:
+    path:       /google-sign-in
+    controller: App\Entrypoint\Controller\Dashboard\Authentication\GoogleSignInController
+    methods:    POST
+
+register_client:
+    path:       /client
+    controller: App\Entrypoint\Controller\Dashboard\Client\ApplicationRegisterClientController
+    methods:    POST
